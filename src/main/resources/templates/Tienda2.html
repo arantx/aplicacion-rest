@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>All employees</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+
+</head>
+<body>
+
+<div class="container my-2">
+    <div class="card">
+        <div class="card-body">
+            <div th:switch="${articulos}" class="container my-5">
+                <p class="my-5">
+                    <a href="/edit2" class="btn btn-primary">
+                        <i class="fas fa-user-plus ml-2"> Add Cajero </i></a>
+                    </form>
+                </p>
+                <div class="col-md-10">
+                    <h2 th:case="null">No record found !!</h2>
+                    <div th:case="*">
+                        <table class="table table-striped table-responsive-md">
+                            <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Apellido Paterno</th>
+                                <th>Apellido Materno</th>
+
+                            </thead>
+                            <tbody>
+                            <tr th:each="cajero : ${cajeros}">
+                                <td th:text="${cajero.Nombre}"></td>
+                                <td th:text="${cajero.apellidoPaterno}"></td>
+                                <td th:text="${cajero.apellidoMaterno}"></td>
+                                <td>
+                                    <a th:href="@{/edit2/{id}(id=${cajero.id})}" class="btn btn-primary">
+                                        <i class="fas fa-user-edit ml-2"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a th:href="@{/delete2/{id}(id=${cajero.id})}" class="btn btn-primary">
+                                        <i class="fas fa-user-times ml-2"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+                <div class="card-body ">
+                    <form action="#" th:action="@{/createArticulo}" th:object="${cajeros}" method="post">
+                        <div class="row container justify-content-center">
+                            <div class="form-group row container">
+                                <label for="name" class="col-form-label">Nombre</label>
+                                <input type="text" th:field="*{Nombre}" class="form-control" id="Nombre"
+                                       placeholder="Nombre" />
+                            </div>
+                            <div class="form-group row container">
+                                <label for="name" class="col-form-label">Apellido Paterno</label>
+                                <input type="text" th:field="*{apellidoPaterno}" class="form-control" id="apellidoPaterno"
+                                       placeholder="apellidoPaterno" />
+                            </div>
+                            <div class="form-group row container">
+                                <label for="name" class="col-form-label">Apellido Materno</label>
+                                <input type="text" th:field="*{apellidoMaterno}" class="form-control" id="apellidoMaterno"
+                                       placeholder="apellidoMaterno" />
+                            </div>
+                            <input type="hidden" id="id" th:field="*{id}">
+                            <div class="form-group row container">
+                                <input type="submit" class="btn btn-primary" value=" Submit ">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    -
+</div>
+</body>
+</html>
